@@ -220,29 +220,54 @@ function down_count($post_id)
 			}
 	}
 
+
+
+
 //Login form Arguments
- $args = array(
-        'echo' => true,
-        'redirect' => site_url( $_SERVER['REQUEST_URI'] ), 
-        'form_id' => 'loginform',
-        'label_username' => __( 'Username' ),
-        'label_password' => __( 'Password' ),
-        'label_remember' => __( 'Remember Me' ),
-        'label_log_in' => __( 'Log In' ),
-        'id_username' => 'user_login',
-        'id_password' => 'user_pass',
-        'id_remember' => 'rememberme',
-        'id_submit' => 'wp-submit',
-        'remember' => true,
-        'value_username' => NULL,
-        'value_remember' => false );
+function kento_vote_login_box()
+	{
+
+	$login_box .= "<div id='kento-vote-login' >";
+	$login_box .= "<p><strong>Please Login To Like this Post</strong></p>";
+	$login_box  .= "<form action='".get_option('home')."/wp-login.php' method='post'>";
+	$login_box .= "<p class='login-username'><label for='user_login'>Username</label><input type='text' name='log' id='log' value='".wp_specialchars(stripslashes($user_login), 1)."' size='20' /></p>";
+	
+	$login_box .= "<p class='login-password'><label for='user_pass'>Password</label><input type='password' name='pwd' id='pwd' size='20' /></p>";
+	$login_box .= "<p class='login-remember'><input name='rememberme' id='rememberme' type='checkbox' checked='checked' value='forever' /><label for='rememberme'>Remember me</label></p>";
+	$login_box .= "<p class='login-submit'><input type='submit' name='submit' value='Send' class='button' /></p>";
+	$login_box .= "<p>";
+
+ 	$login_box .= "<input type='hidden' name='redirect_to' value='".$_SERVER['REQUEST_URI']."' />";   
+	$login_box .= "</p>";
+	$login_box .= "</form>";
+	$login_box .= "Or";
+	$login_box .= "<div class='register-box'><a href='".site_url('/wp-login.php?action=register')."'>Register</a></div>";
+	$login_box .= "</div>";
+	return $login_box ;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function show_form($cont){
 $cont.= "<div id='kento-vote' class='".voted($post_id)."' logged='".is_user_logged($is_logged_in)."' >";
 $cont.=  "<strong>Vote on This!</strong><br /><br />";
 $cont.=   "<ul class='".voted_status($postid)."'><li id='kento-vote-up' votetype='upvote' postid='".get_the_ID()."' class='kento-vote-up vote-button' ><div class='kento-vote-info'><span class='up-vote-value' upvotevalue='".up_count(get_the_ID())."'>".up_count(get_the_ID())."</span> <span class='up-vote-text'>Up Vote</span></div></li>";
 $cont.=  "<li id='kento-vote-down' votetype='downvote' postid='".get_the_ID()."' class='kento-vote-down vote-button'  ><div class='kento-vote-info'><span class='down-vote-value' downvotevalue='".down_count(get_the_ID())."'>".down_count(get_the_ID())."</span><span class='down-vote-text'> Down Vote</span></div></li></ul>";
 $cont.= "<div class='who-voted'>".who_voted(get_the_ID())."</div>";
-$cont.= wp_login_form($args);
+$cont.= kento_vote_login_box();
 $cont.= "<div class='login-bg'></div>";
 $cont.=  "</div>";
 if(is_single()){

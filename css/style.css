@@ -76,19 +76,23 @@
 }
 
 
-#loginform {
+#kento-vote-login {
   background-color: #DDDDDD;
   border: 3px solid #FFFFFF;
   box-shadow: 0 0 38px -12px #000000;
-  height: 270px;
+  height: 330px;
   left: 35%;
   padding-top: 16px;
   position: fixed;
   text-align: center;
-  top: 30%;
+  top: 20%;
   width: 339px;
   z-index: 9999;
   display:none;
+}
+.register-box a {
+  color: #333333 !important;
+  font-weight: bold;
 }
 
 #loginform:before {
@@ -106,5 +110,4 @@
   top: 0;
   width: 100%;
   display:none;
-  z-index: 999;
 }
