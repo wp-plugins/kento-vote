@@ -48,6 +48,8 @@ Via WordPress -
 
 = 1.1 =
 * SQL Update.
+* Add register link to login popup box.
+* Problem fix with hide register or login form.
 
 = 1.0 =
 * Initial release
