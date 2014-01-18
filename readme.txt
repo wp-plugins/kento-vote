@@ -4,7 +4,7 @@ Donate link:
 Tags:  post vote, wordpress vote, Vote It Up, Voting, Polls, thumbs up, Like Post, Thumbs up down
 Requires at least: 3.5
 Tested up to: 3.7.1
-Stable tag: 1.0
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,6 +45,11 @@ Via WordPress -
 
 
 == Changelog ==
+
+= 1.1 =
+* SQL Update.
+
+
 
 = 1.0 =
 * Initial release
