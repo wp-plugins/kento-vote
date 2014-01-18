@@ -46,6 +46,9 @@ Via WordPress -
 
 == Changelog ==
 
+= 1.1 =
+* SQL Update.
+
 = 1.0 =
 * Initial release
 
