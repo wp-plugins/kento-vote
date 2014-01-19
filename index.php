@@ -3,7 +3,7 @@
 Plugin Name: Kento Vote
 Plugin URI: http://kentothemes.com
 Description: Kento Vote Plugin is count your vote and display voter thumbnail under vote button who voted on your post.
-Version: 1.0
+Version: 1.2
 Author: KentoThemes
 Author URI: http://kentothemes.com
 License: GPLv2 or later
@@ -141,25 +141,47 @@ function kento_vote_insert()
 		{
 			if($votetype=="upvote")
 				{
-					$wpdb->query("INSERT INTO $table VALUES('',$postid,1,0)");
+					
+					$wpdb->insert(	$table, 	
+									array( 	'id' => '', 'postid' => $postid,'upvote' => 1,'downvote' => 0	),
+									array('%d', '%d','%d')
+								);
+					
+					
+					
 					
 					global $wpdb;
 					$table = $wpdb->prefix . "kento_vote_info";
 					$postid = $postid;
 					$userid = get_current_user_id();
 					$votetype = "1";
-					$wpdb->query("INSERT INTO $table VALUES('',$postid,$userid,$votetype)");
+					
+					$wpdb->insert(	$table, 	
+									array( 	'id' => '', 'postid' => $postid,'userid' => $userid,'votetype' => $votetype	),
+									array('%d', '%d','%d','%d')
+								);
+					
+					
 				}
 			elseif($votetype=="downvote")
 				{
-					$wpdb->query("INSERT INTO $table VALUES('',$postid,0,1)");
+					
+					$wpdb->insert(	$table, 	
+									array( 	'id' => '', 'postid' => $postid,'upvote' => 0,'downvote' => 1	),
+									array('%d','%d','%d')
+								);					
 					
 					global $wpdb;
 					$table = $wpdb->prefix . "kento_vote_info";
 					$postid = $postid;
 					$userid = get_current_user_id();
 					$votetype = "2";
-					$wpdb->query("INSERT INTO $table VALUES('',$postid,$userid,$votetype)");
+				
+					$wpdb->insert(	$table, 	
+									array( 	'id' => '', 'postid' => $postid,'userid' => $userid,'votetype' => $votetype	),
+									array('%d', '%d','%d','%d')
+								);
+					
 				}
 		}
 	die();
@@ -180,12 +202,26 @@ function kento_vote_info_insert($postid,$votetype)
 			{	if($votetype == "upvote")
 					{
 						$votetype = "1";
-						$wpdb->query("INSERT INTO $table VALUES('',$postid,$userid,$votetype)");
+
+						
+					$wpdb->insert(	$table, 	
+									array( 	'id' => '', 'postid' => $postid,'userid' => $userid,'votetype' => $votetype	),
+									array('%d', '%d','%d','%d')
+								);
+						
+						
 					}
 				elseif($votetype == "downvote")
 					{
 						$votetype = "2";
-						$wpdb->query("INSERT INTO $table VALUES('',$postid,$userid,$votetype)");
+
+						
+					$wpdb->insert(	$table, 	
+									array( 	'id' => '', 'postid' => $postid,'userid' => $userid,'votetype' => $votetype	),
+									array('%d', '%d','%d','%d')
+								);
+						
+						
 					}
 			}
 	}
@@ -262,6 +298,8 @@ function kento_vote_login_box()
 
 
 function show_form($cont){
+	if(is_single())
+		{
 $cont.= "<div id='kento-vote' class='".voted($post_id)."' logged='".is_user_logged($is_logged_in)."' >";
 $cont.=  "<strong>Vote on This!</strong><br /><br />";
 $cont.=   "<ul class='".voted_status($postid)."'><li id='kento-vote-up' votetype='upvote' postid='".get_the_ID()."' class='kento-vote-up vote-button' ><div class='kento-vote-info'><span class='up-vote-value' upvotevalue='".up_count(get_the_ID())."'>".up_count(get_the_ID())."</span> <span class='up-vote-text'>Up Vote</span></div></li>";
@@ -270,9 +308,14 @@ $cont.= "<div class='who-voted'>".who_voted(get_the_ID())."</div>";
 $cont.= kento_vote_login_box();
 $cont.= "<div class='login-bg'></div>";
 $cont.=  "</div>";
-if(is_single()){
-return $cont;
-}
+	
+		return $cont;
+		}
+	else
+		{
+		return $cont;
+		}
+
 }
 add_filter('the_content', 'show_form');
 ?>
