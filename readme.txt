@@ -1,5 +1,5 @@
 === Kento Vote ===
-Contributors: hasanrang05
+Contributors: kentothemes
 Donate link: 
 Tags:  post vote, wordpress vote, Vote It Up, Voting, Polls, thumbs up, Like Post, Thumbs up down
 Requires at least: 3.5
